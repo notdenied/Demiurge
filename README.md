@@ -1,4 +1,3 @@
 # Demiurge
 
-Telegram-bot 3
-.
+Telegram-bot.
