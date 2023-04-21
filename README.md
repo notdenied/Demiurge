@@ -11,7 +11,7 @@ cd Demiurge
 git checkout dev
 ```
 
-- Установите MySQL (точнее, её fork - MariaDB):
+- Установите MySQL (точнее, форк - MariaDB):
 
 ```sudo apt update
 sudo apt install mariadb-server
@@ -31,7 +31,9 @@ pip3 install -r requirements.txt
 
 ```python3 main.py```
 
-Функционал:
+Дальнейшие инструкции прописаны в боте (для теста поднят бот <https://t.me/Demiurge_robot>), предполагается, что интерфейс интуитивно понятен или к нему есть пояснения.
+
+Функционал (базовый + дополнительный):
 
 - Cоздание демотиваторов из картинок пользоватей со случайной или заданной подписью (одна или две строки).
 - Работа с БД, в частности, ведение статистики по созданным демотиваторам, хранение друзей, картинок и пр.
@@ -52,10 +54,6 @@ pip3 install -r requirements.txt
 
 Ниже представлены несколько скриншотов работы проекта.
 
-![Screen 1](images/screenshots/1.png "Шифрование с помощью Шифра Цезаря.")
-![Screen 2](images/screenshots/2.png "Декодирование при помощи различных методов анализа.")
-![Screen 3](images/screenshots/3.png "Декодирование при помощи различных методов анализа 2.")
-![Screen 4](images/screenshots/4.png "Vernam Encoding.")
-![Screen 5](images/screenshots/5.png "Vernam Decoding.")
-![Screen 6](images/screenshots/6.png "Steganography Example: Encoding.")
-![Screen 7](images/screenshots/7.png "Steganography Example: Decoding.")
+![Screen 1](images/screenshots/1.png "Создание картинок.")
+![Screen 2](images/screenshots/2.png "Добавление друзей и просмотр их творений.")
+![Screen 3](images/screenshots/3.png "Настройки, просмотр и редактирование настроек своих картинок.")
