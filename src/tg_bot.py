@@ -142,6 +142,7 @@ bot = Bot(token=TG_TOKEN)
 dp = Dispatcher(bot)
 
 
+@dp.message_handler(content_types=['document'])
 @dp.message_handler(content_types=['photo'])
 @dp.message_handler()
 async def on_message(message):
@@ -153,6 +154,11 @@ async def on_message(message):
         return
     state = user.state
     text = message.text
+    if not text:
+        try:
+            text = message.caption
+        except:
+            pass
     link = get_link(text if text else "")
     '''
     0 - default
@@ -166,6 +172,8 @@ async def on_message(message):
             await message.answer("У вас пока нет демотиваторов!",
                                  reply_markup=MAIN_KB)
             return
+        await message.answer("Загрузка...",
+                             reply_markup=MAIN_KB)
         dem = user_dems[0]
         kb = aiogram.types.inline_keyboard.InlineKeyboardMarkup()
         text = "Тип: приватный." if dem.is_private else "Тип: публичный."
@@ -253,7 +261,7 @@ async def on_message(message):
         kb.add(aiogram.types.InlineKeyboardButton(
             text="Изменить способ генерации",
             callback_data=json.dumps({'action': 'change_create_mode'})))
-        await message.answer(HELP_MESSAGE, reply_markup=kb)
+        await message.answer(SETTINGS_TEXT, reply_markup=kb)
         return
 
     elif text == HELP_BUTTON:
@@ -261,7 +269,7 @@ async def on_message(message):
         return
 
     if state == 0:
-        if message.photo or link:
+        if message.photo or link or message.document:
             name = get_filename()
             await message.answer("Скачиваю...", reply_markup=MAIN_KB)
             try:
@@ -275,25 +283,59 @@ async def on_message(message):
                             else:
                                 raise ValueError()
                 else:
-                    await message.photo[-1].download(name)
+                    if message.photo:
+                        await message.photo[-1].download(name)
+                    else:
+                        await message.document.download(name)
             except:
                 await message.answer(LOAD_ERROR, reply_markup=MAIN_KB)
                 return
-            kb = [
-                [
-                    aiogram.types.KeyboardButton(text=RANDOM_TEXT)
-                ],
-                [
-                    aiogram.types.KeyboardButton(text=BACK_TO_MENU)
-                ]
-            ]
-            kb = aiogram.types.ReplyKeyboardMarkup(
-                keyboard=kb,
-                resize_keyboard=True
-            )
-            await message.answer(WAITING_TEXT, reply_markup=kb)
-            set_state(user_id, 1)
             add_dem(name, user_id)
+            if not text or link:
+                kb = [
+                    [
+                        aiogram.types.KeyboardButton(text=RANDOM_TEXT)
+                    ],
+                    [
+                        aiogram.types.KeyboardButton(text=BACK_TO_MENU)
+                    ]
+                ]
+                kb = aiogram.types.ReplyKeyboardMarkup(
+                    keyboard=kb,
+                    resize_keyboard=True
+                )
+                await message.answer(WAITING_TEXT, reply_markup=kb)
+                set_state(user_id, 1)
+                return
+            dem = get_temp_dem(user_id)
+            await message.answer("Генерирую...", reply_markup=MAIN_KB)
+            if user.create_mode == 0:
+                Generator(text, dem.filename, dem.filename).generate()
+            else:
+                texts = text.split('\n')
+                if len(texts) > 1:
+                    text1, text2 = texts[0], texts[1]
+                else:
+                    text1, text2 = text, ""
+                try:
+                    Image.open(dem.filename).convert('RGB').save(dem.filename)
+                    dem_ = demapi.Configure(
+                        base_photo=open(dem.filename, 'rb').read(), explanation=text2,
+                        title=text1, jpeg_quality=100)
+                except:
+                    await message.answer("Произошла ошибка, попробуйте другую картинку.",
+                                         reply_markup=MAIN_KB)
+                    return
+                try:
+                    with open(dem.filename, 'wb') as f:
+                        (await dem_.coroutine_download()).save(dem.filename)
+                except:
+                    await message.answer("Произошла ошибка, попробуйте другую картинку.",
+                                         reply_markup=MAIN_KB)
+                    return
+            set_dem_temp(dem.id, is_temp=False)
+            await bot.send_photo(user_id, photo=open(dem.filename, 'rb'), caption="Готово!",
+                                 reply_markup=DEM_CREATED_KB(dem.id))
         else:
             await message.answer(HELP_MESSAGE, reply_markup=MAIN_KB)
 
