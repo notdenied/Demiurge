@@ -6,16 +6,14 @@ Telegram-бот для создания и распространения дем
 
 Склонируйте репозиторий:
 
-```
-git clone git@github.com:notdenied/Demiurge.git
+```git clone git@github.com:notdenied/Demiurge.git
 cd Demiurge
 git checkout dev
 ```
 
 - Установите MySQL (точнее, её fork - MariaDB):
 
-```
-sudo apt update
+```sudo apt update
 sudo apt install mariadb-server
 sudo mysql_secure_installation
 ```
@@ -25,8 +23,7 @@ sudo mysql_secure_installation
 
 - Установите Python 3.9 (!) и необходимые зависимости:
 
-```
-sudo apt install python3.9
+```sudo apt install python3.9
 pip3 install -r requirements.txt
 ```
 
