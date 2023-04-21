@@ -1,0 +1,7 @@
+aiogram==2.25.1
+demapi==0.1.6
+sqlalchemy==2.0.9
+sqlalchemy-utils==0.41.0
+pymysql==1.0.3
+aiohttp==3.8.4
+aiofiles==23.1.0
