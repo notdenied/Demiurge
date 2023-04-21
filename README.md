@@ -27,6 +27,11 @@ sudo mysql_secure_installation
 pip3 install -r requirements.txt
 ```
 
+- Создайте Telegram-бота и укажите его токен в настройках (```src/settings.py```).
+
+Готово!
+
+
 Запуск:
 
 ```python3 main.py```
