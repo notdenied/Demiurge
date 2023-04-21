@@ -54,6 +54,6 @@ pip3 install -r requirements.txt
 
 Ниже представлены несколько скриншотов работы проекта.
 
-![Screen 1](images/screenshots/1.png "Создание картинок.")
-![Screen 2](images/screenshots/2.png "Добавление друзей и просмотр их творений.")
-![Screen 3](images/screenshots/3.png "Настройки, просмотр и редактирование настроек своих картинок.")
+![Screen 1](screenshots/1.png "Создание картинок.")
+![Screen 2](screenshots/2.png "Добавление друзей и просмотр их творений.")
+![Screen 3](screenshots/3.png "Настройки, просмотр и редактирование настроек своих картинок.")
