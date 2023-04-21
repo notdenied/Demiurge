@@ -410,7 +410,7 @@ async def on_message(message):
                 await message.answer("Вы не можете добавить себя!",
                                      reply_markup=MAIN_KB)
                 return
-            await bot.send_message(int(text), INVITATION(user_id),
+            await bot.send_message(friend_id, INVITATION(user_id),
                                    reply_markup=INV_KB(user_id))
             await message.answer("Запрос отправлен.", reply_markup=MAIN_KB)
         except:
