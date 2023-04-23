@@ -8,7 +8,6 @@ Telegram-бот для создания и распространения дем
 
 ```git clone git@github.com:notdenied/Demiurge.git
 cd Demiurge
-git checkout dev
 ```
 
 - Установите MySQL (точнее, форк - MariaDB):
@@ -30,7 +29,6 @@ pip3 install -r requirements.txt
 - Создайте Telegram-бота и укажите его токен в настройках (```src/settings.py```).
 
 Готово!
-
 
 Запуск:
 
