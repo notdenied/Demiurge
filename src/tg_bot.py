@@ -222,8 +222,9 @@ async def friends_pics(message):
         resize_keyboard=True,
         input_field_placeholder="Отправьте картинку или нажмите кнопку."
     )
-    await message.answer(SEE_FRIENDS_PICS,
-                         reply_markup=kb)
+    mes = f"Ваш ID: `{message['from']['id']}`"
+    await message.answer(SEE_FRIENDS_PICS + '\n\n' + mes,
+                         reply_markup=kb, parse_mode="Markdown")
 
 
 @dp.message_handler(text=SHOW_PICTURES)
