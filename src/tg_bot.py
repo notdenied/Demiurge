@@ -402,10 +402,10 @@ States:
 @dp.message_handler(content_types=['document', 'photo'])
 @dp.message_handler()
 async def states_handler(message):
-    gl = ContextGlobals(message)
-
-    if gl.text in SYSTEM_TEXTS:
+    if message.text in SYSTEM_TEXTS:
         return
+
+    gl = ContextGlobals(message)
 
     if gl.state == 0:
         await handle_default(gl)

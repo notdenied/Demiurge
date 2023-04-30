@@ -1,4 +1,4 @@
-from sqlalchemy_utils import database_exists, create_database
+# from sqlalchemy_utils import database_exists, create_database
 from sqlalchemy import create_engine
 from sqlalchemy import ForeignKey
 from sqlalchemy import String
@@ -39,7 +39,7 @@ class User(Base):
 url = f"mysql+pymysql://{MARIADB_USER}:{parse.quote_plus(MARIADB_PASSWORD)}"
 url += "@localhost/demiurge"
 engine = create_engine(url, echo=True)
-if not database_exists(engine.url):
-    create_database(engine.url)
+# if not database_exists(engine.url):
+#     create_database(engine.url)
 
 Base.metadata.create_all(engine)
