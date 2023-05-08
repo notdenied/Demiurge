@@ -38,7 +38,7 @@ class User(Base):
 
 url = f"mysql+pymysql://{MARIADB_USER}:{parse.quote_plus(MARIADB_PASSWORD)}"
 url += "@localhost/demiurge"
-engine = create_engine(url, echo=True)
+engine = create_engine(url, echo=True, pool_recycle=10*60, pool_size=5)
 # if not database_exists(engine.url):
 #     create_database(engine.url)
 
